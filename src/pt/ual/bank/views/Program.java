@@ -8,10 +8,10 @@ public class Program {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String command = scanner.nextLine();
-        Bank bank = new Bank();
+        Bank bank = null; // new BankClass();
 
         String name, idNumber, idType, birthday, address, email, phoneNumber;
-        String clientId;
+        String clientId, accountId;
 
         switch (command.toUpperCase()) {
             case "RC":
@@ -55,8 +55,36 @@ public class Program {
                     System.out.println("Conta criada com sucesso. O número é "+accountNumber+".");
                 }
             case "ACC":
+                clientId = scanner.nextLine();
+                accountId = scanner.nextLine();
+                if (!bank.hasClient(clientId)) {
+                    System.out.println("Cliente inexistente.");
+                }
+                else if(bank.accountHasClient(accountId, clientId)) {
+                    System.out.println("Cliente já associado.");
+                }
+                bank.addClientToAccount(accountId, clientId);
+                System.out.println("Cliente associado a conta.");
             case "M":
+                clientId = scanner.nextLine();
+                accountId = scanner.nextLine();
+                double amount = Double.parseDouble(scanner.nextLine());
+                String date = scanner.nextLine();
+                if (!bank.hasClient(clientId)) {
+                    System.out.println("Cliente inexistente.");
+                }
+                else if(!bank.hasAccount(accountId)) {
+                    System.out.println("Conta inexistente.");
+                }
+                bank.registerTransaction(accountId, clientId, amount, date);
+                System.out.println("Movimento reigstado com sucesso");
             case "SC":
+                accountId = scanner.nextLine();
+                if(!bank.hasAccount(accountId)) {
+                    System.out.println("Conta inexistente.");
+                }
+                double balance = bank.getAccountBalance(accountId);
+                System.out.println("A conta tem saldo "+balance);
             default:
                 System.out.println("Instrução inválida.");
         }

@@ -1,39 +1,23 @@
 package pt.ual.bank.controllers;
 
-import pt.ual.bank.models.Client;
+public interface Bank {
+    boolean hasClientByIdNumber(String idNumber, String idType);
 
-import java.util.ArrayList;
-import java.util.List;
+    String registerClient(String name, String idNumber, String idtype, String birthday, String address, String email, String phoneNumber);
 
-public class Bank {
-    private List<Client> clients;
+    boolean hasClient(String clientId);
 
-    public Bank() {
-        this.clients = new ArrayList<>();
-    }
+    void updateClient(String clientId, String name, String birthday, String address, String email, String phoneNumber);
 
-    public boolean hasClientByIdNumber(String idNumber, String idType) {
-        for (Client client : clients) {
-            if(client.getIdNumber().equalsIgnoreCase(idNumber) &&
-                    client.getIdType().equalsIgnoreCase(idType)) {
-                return true;
-            }
-        }
-        return false;
-    }
+    String openAccount(String clientId, double initialDepositAmount);
 
-    public String registerClient(String name, String idNumber, String idtype, String birthday, String address, String email, String phoneNumber) {
-        return null;
-    }
+    boolean accountHasClient(String accountId, String clientId);
 
-    public boolean hasClient(String clientId) {
-        return false;
-    }
+    void addClientToAccount(String accountId, String clientId);
 
-    public void updateClient(String clientId, String name, String birthday, String address, String email, String phoneNumber) {
-    }
+    boolean hasAccount(String accountId);
 
-    public String openAccount(String clientId, double initialDepositAmount) {
-        return null;
-    }
+    void registerTransaction(String accountId, String clientId, double amount, String date);
+
+    double getAccountBalance(String accountId);
 }

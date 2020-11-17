@@ -54,7 +54,8 @@
    Conta inexistente.
 
 
-Account
-Client
-Movement
-Bank
+
+Program <-> Bank <-> Client
+                 <-> Account
+                 <-> Transaction
+                 <-> ...
